@@ -1,0 +1,30 @@
+<% layout("layouts/boilerplate")  %>
+<div class="row">
+    <div class="col-8 offset-3 mt-2">
+    <h3>Listing Details</h3>
+</div>
+<div class="card col-6 offset-3">
+    <img src="<%= hotel.image.url%>" class="card-img-top show-img" alt="...">
+  <div class="card-body">
+    <p class="card-text">
+    <b><%= hotel.title %></b> <br>
+    <%= hotel.description%><br>
+    &#8377 <%= hotel.price.toLocaleString("en-IN") %><br>
+    <%= hotel.location %><br>
+    <%= hotel.country%>   <br>
+    </p>
+  </div>
+</div>
+
+
+<div class="btns">
+         
+   <a href="/listings/<%= hotel._id %>/edit" class="btn btn-dark col-1 offset-3 add-btn" > Edit </a>
+
+<form action="/listings/<%= hotel._id %>?_method=DELETE" method="Post" >
+        
+        <button  class="btn btn-dark offset-5">Delete</button>
+    </form>
+</div>   
+</div>   
+
