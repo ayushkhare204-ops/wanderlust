@@ -43,7 +43,7 @@
     <textarea id="comment" name="review[comment]" cols="30" row="5" class="form-control" required></textarea>
   <div class="invalid-feedback">Please write a comment.</div>
   </div>
-  <button>Submit</button>
+  <button class="btn btn-outline-dark">Submit</button>
   </form>
 <hr>
 
@@ -54,10 +54,13 @@
 <div class="card col-5 ms-3 mb-3">
 <div class="card-body">
 
-      <h5 class="card-title">Card title</h5>
+      <h5 class="card-title">suername</h5>
       <p class="card-text"><%=review.comment%></p>
       <p class="card-text"><%=review.rating%> Stars</p>
 
+<form action="/listings/<%= hotel._id %>/reviews/<%=review.id%>?_method=DELETE " method="post">
+  <button class="btn btn-sm btn-dark">delete</button>
+</form>
 
 </div>
 </div>
@@ -71,5 +74,3 @@
 
 
 </div>   
-
-

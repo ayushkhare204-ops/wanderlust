@@ -83,7 +83,7 @@ app.get("/listings/:id",
   
     wrapAsync( async (req,res)=>{
   let {id} = req.params;
-   const hotel=await  Listing.findById(id);
+   const hotel=await  Listing.findById(id).populate("reviews");
    res.render("listings/show.ejs",{hotel});
 }))
 
@@ -114,17 +114,30 @@ res.redirect("/listings");
 }));
 
 
-//reviews
+//reviews post
 app.post("/listings/:id/reviews",validatereview,
   wrapAsync( async (req,res)=>{
-    console.log(req.params.id);
       const listing= await Listing.findById(req.params.id);
-  const newreview=new reviews(req.body.review);
+  const newreview=new reviews (req.body.review);
   listing.reviews.push(newreview);   
   await newreview.save();
   await listing.save();
   res.redirect(`/listings/${req.params.id}`);
   }));
+
+
+
+//delete review
+app.delete("/listings/:id/reviews/:reviewid",
+  wrapAsync( async (req,res)=>{
+    
+    let {id,reviewid}=req.params;
+
+      await Listing.findByIdAndUpdate(id,{$pull:{reviews:reviewid}});
+      await reviews.findByIdAndDelete(reviewid);
+      res.redirect(`/listings/${req.params.id}`);
+}));
+
 
 // app.get("/testListing", async(req,res)=>{
 //   let sampleListing =new Listing({
