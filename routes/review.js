@@ -1,6 +1,5 @@
 const express=require("express");
-const router =express.Router();
-// ({ mergeParams: true})
+const router =express.Router({ mergeParams: true});
 
 const reviews= require("../models/reviews.js");
 const Listing= require("../models/listing.js");
