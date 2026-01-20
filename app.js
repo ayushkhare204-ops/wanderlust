@@ -2,13 +2,11 @@ const express=require("express");
 const app= express();
 const mongoose= require("mongoose");
 const Listing= require("./models/listing.js");
-// const reviews= require("./models/reviews.js");
 const path=require("path");
 const ejsMate=require("ejs-mate");
-// const wrapAsync = require("./utils/wrapAsync");
 const expressError = require("./utils/expressError");
-// const {listingSchema,reviewSchema} = require("./schema.js");
-
+const session =require("express-session");
+const flash = require("connect-flash");
 
 const methodOverride= require("method-override");
 
@@ -33,6 +31,26 @@ async function main() {
   await mongoose.connect('mongodb://127.0.0.1:27017/Wanderlust');
   }
 
+
+const sessionOptions={
+  secret:"mysupersecretcode",
+  resave:false,
+  saveUninitialized: true,
+  cookie:{
+    expires:(Date.now()+ 7*24*60*60*1000),
+    maxAge:7*24*60*60*1000,
+  httpOnly:true,
+  }
+};
+
+app.use(session(sessionOptions));
+app.use(flash());
+
+app.use((req,res,next)=>{
+  res.locals.success=req.flash("success");
+  res.locals.error=req.flash("error");
+  next();
+});
 
 
 //home Route

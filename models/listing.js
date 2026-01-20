@@ -7,8 +7,8 @@ const listingSchema= new mongoose.Schema({
         required:true},
     description:String,
     image:{
-        fileneame: 
-            {type:"String",
+        filename: 
+            {type:String,
             default:"Listingimg",
         },
         url:
